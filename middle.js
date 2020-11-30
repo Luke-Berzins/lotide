@@ -1,7 +1,7 @@
 const middle = function(middleArr) {
   let collecter = [];
   if (middleArr.length <= 2) {
-    return collecter;
+    return [];
   } else if ((middleArr.length - 1) % 2 === 0) {
     collecter.push(middleArr[(middleArr.length - 1) / 2]);
 
