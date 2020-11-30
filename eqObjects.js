@@ -14,24 +14,26 @@ const eqArrays = function(arr1, arr2) {
   return true;
 };
 const eqObjects = function(object1, object2) {
-  
-  for (let firstK in object1) {
-    if (typeof(object1[firstK]) === "object" || Array.isArray(object1[firstK]) !== true) {
-      return eqObjects(object1[firstK], object2[firstK]);
-    }
-    if (Array.isArray(object1[firstK])) {
-      if (eqArrays(object1[firstK], object2[firstK]) !== true) {
+  let keys1 = Object.keys(object1)
+  for (let j = 0; j < keys1.length; j++) {
+    if (typeof(object1[keys1[j]]) !== "object") {
+      if (object1[keys1[j]] !== object2[keys1[j]]) {
         return false;
       }
     }
+  }
+  for (firstK in object1) {
+    if (typeof(object1[firstK]) === "object") {
+      return eqObjects(object1[firstK], object2[firstK]);
+    }
     if (object1[firstK] !== object2[firstK]) {
-      return false;
+      return false
     }
   }
-  return true;
+  return true
 };
 
-assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true);
-assertEqual(eqObjects({ a: { z: { t : 10, v : { s : 1, d : {u :6, h: 1}}} }, b: 2 }, { a: { z: { t : 10, v : { s : 1, d : {u :6, h: 1}}} }, b: 2 }), true);
+assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true)
+assertEqual(eqObjects({ a: { z: { t : 10, v : { s : 1, d : {u :6, h: 1}}} }, b: 2 }, { a: { z: { t : 10, v : { s : 1, d : {u :6, h: 1}}} }, b: 2 }), true)
 
 
